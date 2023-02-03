@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 
 //라우팅
-const home = require("./src/routes/home");
+const home = require("./src/routes/home"); // 라우팅 코드를 require해 부른다
 
 //앱세팅
 app.set("views", "./src/views");
@@ -15,6 +15,7 @@ app.set("view engine", "ejs"); //뷰엔진을 어떤 방식으로 해석할지
 app.use(express.static(`${__dirname}/src/public`)); //express의 메소드 중 정적 경로를 추가할 수 있는 메소드 -static
 //dirname은 현재app.js가 있는 위치를 반환한다. -> 그 위치(디렉토리네임) 안에, src 폴더 안에 public 폴더를 정적 경로로 추가(use)
 
-app.use("/", home); //use 미들웨어를 등록하는 메소드
+app.use("/", home); //use 미들웨어를 등록하는 메소드: 내보낸 라우터를 받아온다.
+//루트 라는 경로로 들어오면 home으로 보내준다는 의미
 
 module.exports = app;
