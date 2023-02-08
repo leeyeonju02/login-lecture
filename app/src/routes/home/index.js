@@ -6,7 +6,8 @@ const router = express.Router();
 
 const ctrl = require("./home.ctrl"); //컨트롤러 가져오기
 
-router.get("/", ctrl.hello); //루트 경로연결
-router.get("/login", ctrl.login);
+router.get("/", ctrl.output.hello); //루트 경로연결
+router.get("/login", ctrl.output.login);
+router.post("/login", ctrl.process.login); //실제 서버에서 해당 api만들기 - //해당 api는 프론트가 전달한 로그인 데이터를 받아서 로그인 기능을 처리해주는 애
 
 module.exports = router; //외부 파일이 라우터를 쓸 수 있게 던진다.

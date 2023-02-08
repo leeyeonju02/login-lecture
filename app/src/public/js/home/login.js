@@ -21,16 +21,19 @@ function login() {
     id: id.value, //테그에 value라는 변수에 접근해 버튼이 클릭됬을 때 값을 가져온다.
     psword: psword.value,
   };
-  console.log(req);
+  // 위에서 가져온 데이터를 fetch를 통해 서버에 전달한다(네트워크 통신)
+  //fetch라는 것을 통해서 어떤 경로를 통해 데이터를 전달해줘야 한다.
+  // /login이라는 경로가 있다고 가정하고 전달하자 두번째 파라미터로 전달할 데이터를 넣어준다 (object 형태)
+  fetch("/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json", //내가 보내는 데이터의 타입을 명시한다.
+    },
+    body: JSON.stringify(req), //stringify: 단순히 req를 문자열로 바꿔주는 메소드
+  })
+    //서버에서 응답한 데이터 받기- res 데이터가 파라미터로 전달 : promise라는 데이터가 날라오게 된다. 이를 받기 위해선 then을 한번더
+    .then((res) => res.json()) // console.log(res.json()))
+    .then((res) => {}); // console.log(res)
+  //then((res) => res.json()).then(res) => console.log(res));
+  //then((res) => res.json()).then(console.log));
 }
-
-// 위에서 가져온 데이터를 fetch를 통해 서버에 전달한다(네트워크 통신)
-//fetch라는 것을 통해서 어떤 경로를 통해 데이터를 전달해줘야 한다.
-// /login이라는 경로가 있다고 가정하고 전달하자 두번째 파라미터로 전달할 데이터를 넣어준다 (object 형태)
-fetch("/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json", //내가 보내는 데이터의 타입을 명시한다.
-  },
-  body: JSON.stringify(req), //stringify: 단순히 req를 문자열로 바꿔주는 메소드
-});
