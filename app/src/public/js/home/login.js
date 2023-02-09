@@ -1,15 +1,9 @@
 "use strict";
-//html과 연동된 js 파일
-// login.ejs - login.js 연결
-//login.js는 html 문서와 연결된 자바스크립트 파일로서 프론트 단에서 동작하는 자바스크립트
 
 //queryselector: 질의 선택자
 const id = document.querySelector("#id"), //파라미터에서 선택자에서 html의 값을 가져올 수 있다.
   psword = document.querySelector("#psword"),
   loginBtn = document.querySelector("button");
-
-// console.log(id); //null값이 나오게 된다. ejs에서 document에서 querySelecotor값을 가져오기 전에 console값을 먼저 실행되기 때문
-//defer 추가 해줘 동기로 접근하면서 문제를 해결한다. < script defer  src = “script.js”></script>
 
 //로그인 버튼이 클릭되면 login 함수 실행
 loginBtn.addEventListener("click", login);
@@ -33,7 +27,11 @@ function login() {
   })
     //서버에서 응답한 데이터 받기- res 데이터가 파라미터로 전달 : promise라는 데이터가 날라오게 된다. 이를 받기 위해선 then을 한번더
     .then((res) => res.json()) // console.log(res.json()))
-    .then((res) => {}); // console.log(res)
-  //then((res) => res.json()).then(res) => console.log(res));
-  //then((res) => res.json()).then(console.log));
+    .then((res) => {
+      if (res.success) {
+        location.href = "/";
+      } else {
+        alert(res.msg);
+      }
+    });
 }
