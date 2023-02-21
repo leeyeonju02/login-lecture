@@ -7,8 +7,12 @@ class User {
     this.body = body; //파라미터로 받아온 바디를 this.body에 넣기 = User의 body변수 안에 파라미터 body가 들어간다.
   }
   login() {
+    //일단 UserStorage안에 접근해서 데이터를 가져와야 한다.
     const body = this.body;
     const { id, psword } = UserStorage.getUsersInfo(body.id); //아이디 값을 던지면 아이디에 해당하는 데이터를 object로 전달하는 메소드 만들자
+    //변수로 받을수도 있지만 object 안에 바로 받아 전달되는 필드
+    //오브젝트로 날라온 리턴 된 오브젝트에서 id와 psword만 받자
+
     //console.log(a); 해당하는 키 값 object 중 id와 psword 키 값만 받는다. ㅋ
     //id와 psword 의 필드의 값을 가져온다 변수로 받을 수 도 있지만 object 안에 id와 psword 라는 변수로 바로 받음- 들어올 때도 object로 들어와서 저장도 object로 한다.
     //UserStorage에 내가 요청한 아이디에 해당하는 데이터만 가져오는 메소드 만들자
@@ -19,7 +23,7 @@ class User {
       if (id === body.id && psword === body.psword) {
         return { success: true }; //object 형태로 아이디가 같으면 true
       }
-      return { success: false, msg: "비밀번호가 틀렸습니다." };
+      return { success: false, msg: "비밀번호가 틀렸습니다." }; //아이디는 잇는데 비번이 틀리면
     }
     return { success: false, msg: "존재하지 않은 아이디입니다." };
   }
