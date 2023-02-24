@@ -2,30 +2,30 @@
 const UserStorage = require("./UserStorage");
 
 class User {
-  //생성자 만들어 바디 받기
+  //클라이언트가 전달한 body값을 가지고 다니는 인스턴스를 만들어 생성자에서 body값을 지니게 한다.
   constructor(body) {
-    this.body = body; //파라미터로 받아온 바디를 this.body에 넣기 = User의 body변수 안에 파라미터 body가 들어간다.
+    this.body = body;
   }
   login() {
-    //일단 UserStorage안에 접근해서 데이터를 가져와야 한다.
-    const body = this.body;
-    const { id, psword } = UserStorage.getUsersInfo(body.id); //아이디 값을 던지면 아이디에 해당하는 데이터를 object로 전달하는 메소드 만들자
-    //변수로 받을수도 있지만 object 안에 바로 받아 전달되는 필드
-    //오브젝트로 날라온 리턴 된 오브젝트에서 id와 psword만 받자
-
-    //console.log(a); 해당하는 키 값 object 중 id와 psword 키 값만 받는다. ㅋ
-    //id와 psword 의 필드의 값을 가져온다 변수로 받을 수 도 있지만 object 안에 id와 psword 라는 변수로 바로 받음- 들어올 때도 object로 들어와서 저장도 object로 한다.
-    //UserStorage에 내가 요청한 아이디에 해당하는 데이터만 가져오는 메소드 만들자
+    const client = this.body;
+    const { id, psword } = UserStorage.getUsersInfo(client.id);
+    //UserStorage에 접근해서 해당하는 id와 psword 데이터 가져오기
 
     if (id) {
-      //일단 내가 전달한 아이디가 userStorage에 있으면 true
-      //스토리지에서 가져온 아이디와 클라이언트가 입력한 바디의 아이디가 같고, 스토리지의 패스워드와 클라이언트의 패스워드가 같으면
-      if (id === body.id && psword === body.psword) {
+      if (id === client.id && psword === client.psword) {
         return { success: true }; //object 형태로 아이디가 같으면 true
       }
-      return { success: false, msg: "비밀번호가 틀렸습니다." }; //아이디는 잇는데 비번이 틀리면
+      return { success: false, msg: "비밀번호가 틀렸습니다." };
     }
     return { success: false, msg: "존재하지 않은 아이디입니다." };
+  }
+
+  register() {
+    const client = this.body;
+    //UserStorage에 save메소드가 호출되서 데이터가 저장되게
+    const response = UserStorage.save(client); //저장된 데이터를 Storage에 던져주기 위해
+    //클래스가 constructor에서 전달받은 바디를 그대로 던져준다.
+    return response;
   }
 }
 
