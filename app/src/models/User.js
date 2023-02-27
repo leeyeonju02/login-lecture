@@ -6,9 +6,11 @@ class User {
   constructor(body) {
     this.body = body;
   }
-  login() {
+  async login() {
+    //비동기 함수로 바꿔줘야 await 옵션을 쓸 수 있다.
     const client = this.body;
-    const { id, psword } = UserStorage.getUsersInfo(client.id);
+    const { id, psword } = await UserStorage.getUsersInfo(client.id); //호출하는 객체가 promise객체여서 불러오는데 시간이 걸림
+    //promise객체보다 불러오는 코드가 먼저 실행되는 것을 방지하기 위해 await을 걸어 시간을 끌어준다. await은 promise를 반환하는 애한테만 쓸 수 있다
     //UserStorage에 접근해서 해당하는 id와 psword 데이터 가져오기
 
     if (id) {

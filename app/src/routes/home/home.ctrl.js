@@ -17,9 +17,9 @@ const output = {
 };
 
 const process = {
-  login: (req, res) => {
+  login: async (req, res) => {
     const user = new User(req.body); //user라는 인스턴스 만들기 req.body는 User 클래스에 body로 들어가게 된다.
-    const response = user.login();
+    const response = await user.login();
     return res.json(response);
   },
   register: (req, res) => {
