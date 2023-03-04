@@ -10,7 +10,8 @@ router.get("/", ctrl.output.hello); //루트 경로연결
 router.get("/login", ctrl.output.login);
 router.get("/register", ctrl.output.register);
 
+//api
 router.post("/login", ctrl.process.login); //실제 서버에서 해당 api만들기 - //해당 api는 프론트가 전달한 로그인 데이터를 받아서 로그인 기능을 처리해주는 애
-router.post("/register", ctrl.process.register);
+router.post("/register", ctrl.process.register); //register 경로로 해당 요청 post이 오게 되면 해당 함수를 실행
 
 module.exports = router; //외부 파일이 라우터를 쓸 수 있게 던진다.

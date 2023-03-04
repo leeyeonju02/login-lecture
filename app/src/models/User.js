@@ -22,12 +22,17 @@ class User {
     return { success: false, msg: "존재하지 않은 아이디입니다." };
   }
 
-  register() {
+  async register() {
     const client = this.body;
     //UserStorage에 save메소드가 호출되서 데이터가 저장되게
-    const response = UserStorage.save(client); //저장된 데이터를 Storage에 던져주기 위해
-    //클래스가 constructor에서 전달받은 바디를 그대로 던져준다.
-    return response;
+    try {
+      const response = await UserStorage.save(client); //저장된 데이터를 Storage에 던져주기 위해
+      //클래스가 constructor에서 전달받은 바디를 그대로 던져준다.
+      return response;
+    } catch (err) {
+      //에러를 object로 던진다.
+      return { success: false, msg: err };
+    }
   }
 }
 
